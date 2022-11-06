@@ -42,7 +42,7 @@ int main()
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    Shader shader("shader.vs", "shader.fs");
+    Shader shader("res/shader.vs", "res/shader.fs");
 
     // -------------------------------------------------------------------------
 
