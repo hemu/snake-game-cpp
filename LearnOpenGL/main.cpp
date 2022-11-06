@@ -81,9 +81,9 @@ int main()
     }
     stbi_image_free(data2);
 
-    shader.use();
-    shader.setInt("texture", 0);
-    shader.setInt("texture2", 1);
+    shader.Use();
+    shader.SetInt("texture", 0);
+    shader.SetInt("texture2", 1);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -100,7 +100,7 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        shader.use();
+        shader.Use();
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
