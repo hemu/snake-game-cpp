@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#pragma once
 #include <iostream>
 
 class Shader
@@ -76,6 +77,7 @@ public:
         glAttachShader(ID, vertex);
         glAttachShader(ID, fragment);
         glLinkProgram(ID);
+        glValidateProgram(ID);
         glGetProgramiv(ID, GL_LINK_STATUS, &success);
         if (!success)
         {
