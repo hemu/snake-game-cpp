@@ -20,5 +20,5 @@ public:
     void SetFloat(const std::string &name, float value) const;
 
 private:
-    unsigned int CompileShader();
+    unsigned int CompileShader(unsigned int type, const char *source);
 };

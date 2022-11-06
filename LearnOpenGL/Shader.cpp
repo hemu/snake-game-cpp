@@ -36,39 +36,19 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     const char *fShaderCode = fragmentCode.c_str();
 
     unsigned int vertex, fragment;
-    int success;
-    char infoLog[512];
-
-    vertex = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex, 1, &vShaderCode, NULL);
-    glCompileShader(vertex);
-
-    glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED" << infoLog << std::endl;
-    };
-
-    fragment = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment, 1, &fShaderCode, NULL);
-    glCompileShader(fragment);
-
-    glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED" << infoLog << std::endl;
-    };
+    vertex = Shader::CompileShader(GL_VERTEX_SHADER, vShaderCode);
+    fragment = Shader::CompileShader(GL_FRAGMENT_SHADER, fShaderCode);
 
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
     glLinkProgram(ID);
     glValidateProgram(ID);
+    int success{0};
     glGetProgramiv(ID, GL_LINK_STATUS, &success);
     if (!success)
     {
+        char infoLog[512];
         glGetProgramInfoLog(ID, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED" << infoLog << std::endl;
     }
@@ -80,6 +60,25 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
 Shader::~Shader()
 {
     glDeleteProgram(ID);
+}
+
+unsigned int Shader::CompileShader(unsigned int type, const char *source)
+{
+    unsigned int id = glCreateShader(type);
+    glShaderSource(id, 1, &source, NULL);
+    glCompileShader(id);
+
+    // Error handling
+    int success{0};
+    glGetShaderiv(id, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        char infoLog[512];
+        glGetShaderInfoLog(id, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::" << (type == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT") << "::COMPILATION_FAILED" << infoLog << std::endl;
+    };
+
+    return id;
 }
 
 void Shader::Use()
