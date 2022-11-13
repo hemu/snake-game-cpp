@@ -140,12 +140,14 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader.fs" />

@@ -1,17 +1,16 @@
+#include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
-#include "Shader.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-#include "Rect.h"
 #include "Input.h"
+#include "Rect.h"
+#include "Shader.h"
+#include "Texture.h"
 
+// TODO: can just get rid of this? why declare and then immediately define?
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
-
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -32,55 +31,23 @@ int main()
         return -1;
     }
     glfwMakeContextCurrent(window);
-
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-
     glViewport(0, 0, 800, 600);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-    Shader shader("res/Basic.shader");
-
     // -------------------------------------------------------------------------
+
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     Rect rect = Rect();
     rect.setup();
 
-    int width, height, nrChannels;
-    unsigned char *data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
-    unsigned int texture;
-    if (data)
-    {
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cerr << "Failed to open texture" << std::endl;
-    }
-    stbi_image_free(data);
+    Texture texture = Texture("container.jpg");
+    Texture texture2 = Texture("book_img.jpg");
 
-    unsigned char *data2 = stbi_load("book_img.jpg", &width, &height, &nrChannels, 0);
-    unsigned int texture2;
-    if (data2)
-    {
-        glGenTextures(1, &texture2);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data2);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cerr << "Failed to open texture" << std::endl;
-    }
-    stbi_image_free(data2);
-
+    Shader shader("res/Basic.shader");
     shader.Use();
     shader.SetInt("texture", 0);
     shader.SetInt("texture2", 1);
@@ -103,9 +70,9 @@ int main()
         shader.Use();
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        glBindTexture(GL_TEXTURE_2D, texture.m_ID);
         glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texture2);
+        glBindTexture(GL_TEXTURE_2D, texture2.m_ID);
 
         rect.render();
 
