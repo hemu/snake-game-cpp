@@ -8,9 +8,7 @@
 #include "Shader.h"
 #include "Rect.h"
 
-Rect::Rect()
-{
-}
+Rect::Rect() {}
 
 void Rect::setup()
 {

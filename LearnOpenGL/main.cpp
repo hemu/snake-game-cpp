@@ -4,6 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Cube.h"
 #include "Input.h"
 #include "Rect.h"
 #include "Shader.h"
@@ -42,6 +43,9 @@ int main()
     Rect rect = Rect();
     rect.setup();
 
+    Cube cube = Cube();
+    cube.setup();
+
     Texture texture = Texture("container.jpg");
     Texture texture2 = Texture("book_img.jpg");
 
@@ -66,7 +70,7 @@ int main()
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
         glm::mat4 view = glm::mat4(1.0f);
-        view = glm::translate(view, glm::vec3(-1.0f, 0.0f, -3.0f));
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
         unsigned int viewLoc = glGetUniformLocation(shader.ID, "view");
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
@@ -85,7 +89,8 @@ int main()
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2.m_ID);
 
-        rect.render();
+        // rect.render();
+        cube.render();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
