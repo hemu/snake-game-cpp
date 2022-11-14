@@ -39,6 +39,7 @@ int main()
     // -------------------------------------------------------------------------
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glEnable(GL_DEPTH_TEST);
 
     Rect rect = Rect();
     rect.setup();
@@ -49,7 +50,8 @@ int main()
     Texture texture = Texture("container.jpg");
     Texture texture2 = Texture("book_img.jpg");
 
-    Shader shader("res/Basic.shader");
+    // Shader shader("res/Basic.shader");
+    Shader shader("res/BasicNoColor.shader");
     shader.Use();
     shader.SetInt("texture", 0);
     shader.SetInt("texture2", 1);
@@ -65,7 +67,8 @@ int main()
         // glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        // model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.5f));
         unsigned int modelLoc = glGetUniformLocation(shader.ID, "model");
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -80,14 +83,14 @@ int main()
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        shader.Use();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture.m_ID);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2.m_ID);
+
+        shader.Use();
 
         // rect.render();
         cube.render();
