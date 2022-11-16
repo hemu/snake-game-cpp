@@ -50,6 +50,7 @@ int main()
     {
         std::cout << "Start cube " << i << std::endl;
         // --- Doing it this way will not work for some reason ---
+        // TODO(hemu): figure out why
         // Cube cube = Cube();
         // cube.setup();
         // cubes[i] = cube;
