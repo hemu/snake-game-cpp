@@ -32,7 +32,6 @@ void Cube::render()
 
 Cube::~Cube()
 {
-    std::cout << "Destructing cube..." << std::endl;
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
 }
