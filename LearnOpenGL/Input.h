@@ -5,5 +5,5 @@
 
 namespace input
 {
-    void processInput(GLFWwindow *window, Camera *camera);
+    void processInput(GLFWwindow *window, Camera *camera, float dt);
 }

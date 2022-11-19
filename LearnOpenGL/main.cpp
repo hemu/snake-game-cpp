@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Cube.h"
 #include "Input.h"
+#include "Mouse.h"
 #include "Rect.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -73,10 +74,20 @@ int main()
 
     const float radius = 10.0f;
     Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+    Mouse mouse = Mouse(window, &camera);
+    mouse.Setup();
+
+    float dt{0.0f};
+    float last_frame{0.0f};
+    float current_frame{0.0f};
 
     while (!glfwWindowShouldClose(window))
     {
-        input::processInput(window, &camera);
+        current_frame = glfwGetTime();
+        dt = current_frame - last_frame;
+        last_frame = current_frame;
+        input::processInput(window, &camera, dt);
+        mouse.ProcessInput();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -90,8 +101,6 @@ int main()
             unsigned int modelLoc = glGetUniformLocation(shader.ID, "model");
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-            // camera.pos.x = sin(glfwGetTime()) * radius;
-            // camera.pos.z = cos(glfwGetTime()) * radius;
             glm::mat4 view = camera.GetView();
             unsigned int viewLoc = glGetUniformLocation(shader.ID, "view");
             glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
