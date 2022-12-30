@@ -27,6 +27,6 @@ Texture::Texture(const char *file_path)
     }
     else
     {
-        std::cerr << "Failed to open texture" << std::endl;
+        std::cerr << "Failed to open texture: " << file_path << std::endl;
     }
 }

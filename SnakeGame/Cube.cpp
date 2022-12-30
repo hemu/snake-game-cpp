@@ -2,9 +2,13 @@
 #include <glad/glad.h>
 #include <iostream>
 
-Cube::Cube() {}
+Cube::Cube()
+{
+    std::cout << "Cube constructor" << std::endl;
+    Setup();
+}
 
-void Cube::setup()
+void Cube::Setup()
 {
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -24,7 +28,7 @@ void Cube::setup()
     glBindVertexArray(0);
 }
 
-void Cube::render()
+void Cube::Render()
 {
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -32,6 +36,7 @@ void Cube::render()
 
 Cube::~Cube()
 {
+    std::cout << "Cube destructor" << std::endl;
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
 }

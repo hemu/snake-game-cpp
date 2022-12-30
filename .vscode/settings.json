@@ -13,6 +13,8 @@
         "xlocale": "cpp",
         "xmemory": "cpp",
         "xstring": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "sstream": "cpp",
+        "vector": "cpp"
     }
 }

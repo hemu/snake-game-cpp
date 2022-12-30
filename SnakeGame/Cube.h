@@ -1,13 +1,14 @@
 #pragma once
+#include "GameObject.h"
 
-class Cube
+class Cube : public GameObject
 {
 public:
     Cube();
     ~Cube();
 
-    void setup();
-    void render();
+    void Setup();
+    void Render() override;
 
     unsigned int VAO;
     unsigned int VBO;
