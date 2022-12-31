@@ -5,18 +5,22 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "World.h"
+#include <set>
 
-Scene::Scene(Camera &camera) : m_camera{camera}, m_texture{"container.jpg"}
+Scene::Scene(Camera &camera) : m_camera{camera}, m_texture{"container.jpg"}, m_world{100, 100, 5}
 {
 }
 
 void Scene::Render()
 {
+    Coord grid_pos{0, 0};
     for (unsigned int i = 0; i < m_gameobjs.size(); i++)
     {
         GameObject &obj{m_gameobjs[i].get()};
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, obj.pos);
+        grid_pos = m_world.GetCellCoord(obj.pos.x, obj.pos.y);
+        model = glm::translate(model, glm::vec3(grid_pos.x, grid_pos.y, obj.pos.z));
 
         // model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.5f));
         unsigned int modelLoc = glGetUniformLocation(obj.shader.ID, "model");

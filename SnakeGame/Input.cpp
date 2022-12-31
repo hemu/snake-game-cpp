@@ -6,18 +6,17 @@ namespace input
 {
     void processInput(GLFWwindow *window, Player &player, float dt)
     {
-        float player_speed = 2.5f;
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         {
             glfwSetWindowShouldClose(window, true);
         }
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            player.pos += player_speed * dt * glm::vec3(0.0f, 1.0f, 0.0f);
+            player.pos += player.speed * dt * glm::vec3(0.0f, 1.0f, 0.0f);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            player.pos += player_speed * dt * glm::vec3(0.0f, -1.0f, 0.0f);
+            player.pos += player.speed * dt * glm::vec3(0.0f, -1.0f, 0.0f);
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            player.pos += player_speed * dt * glm::vec3(-1.0f, 0.0f, 0.0f);
+            player.pos += player.speed * dt * glm::vec3(-1.0f, 0.0f, 0.0f);
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            player.pos += player_speed * dt * glm::vec3(1.0f, 0.0f, 0.0f);
+            player.pos += player.speed * dt * glm::vec3(1.0f, 0.0f, 0.0f);
     }
 }

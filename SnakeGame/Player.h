@@ -8,6 +8,7 @@ class Player : public GameObject
 public:
     Player();
     void Render() override;
+    float speed{50.0f};
 
 private:
     Cube m_cube;
