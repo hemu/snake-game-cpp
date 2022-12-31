@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Camera.h"
+#include "Player.h"
 #include "Cube.h"
 #include "Input.h"
 #include "Rect.h"
@@ -44,16 +45,11 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glEnable(GL_DEPTH_TEST);
 
-    Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+    Camera camera(glm::vec3(0.0f, 0.0f, 6.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
     Scene scene(camera);
 
-    std::array<Cube, 3> cubes{};
-    for (unsigned int i = 0; i < cubes.size(); i++)
-    {
-        scene.AddGameObject(cubes[i]);
-    }
-
-    const float radius = 10.0f;
+    Player player{};
+    scene.AddGameObject(player);
 
     float dt{0.0f};
     float last_frame{0.0f};
@@ -64,7 +60,7 @@ int main()
         current_frame = glfwGetTime();
         dt = current_frame - last_frame;
         last_frame = current_frame;
-        input::processInput(window, &camera, dt);
+        input::processInput(window, player, dt);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

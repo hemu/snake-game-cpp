@@ -1,9 +1,9 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
-#include "Camera.h"
+#include "Player.h"
 
 namespace input
 {
-    void processInput(GLFWwindow *window, Camera *camera, float dt);
+    void processInput(GLFWwindow *window, Player &player, float dt);
 }
