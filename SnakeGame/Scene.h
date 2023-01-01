@@ -9,7 +9,7 @@ class Scene
 {
 public:
     Scene(Camera &camera);
-    void Render();
+    void Render(float dt);
     void AddGameObject(GameObject &gameobject);
 
 private:

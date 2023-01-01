@@ -9,6 +9,7 @@ public:
     glm::vec3 pos;
     Shader shader;
     virtual void Render() = 0;
+    virtual void Update(float dt){};
 
 private:
 };

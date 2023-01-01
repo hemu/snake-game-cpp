@@ -12,15 +12,13 @@ Scene::Scene(Camera &camera) : m_camera{camera}, m_texture{"container.jpg"}, m_w
 {
 }
 
-void Scene::Render()
+void Scene::Render(float dt)
 {
-    Coord grid_pos{0, 0};
     for (unsigned int i = 0; i < m_gameobjs.size(); i++)
     {
         GameObject &obj{m_gameobjs[i].get()};
         glm::mat4 model = glm::mat4(1.0f);
-        grid_pos = m_world.GetCellCoord(obj.pos.x, obj.pos.y);
-        model = glm::translate(model, glm::vec3(grid_pos.x, grid_pos.y, obj.pos.z));
+        model = glm::translate(model, obj.pos);
 
         // model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.5f));
         unsigned int modelLoc = glGetUniformLocation(obj.shader.ID, "model");
@@ -39,6 +37,7 @@ void Scene::Render()
         glBindTexture(GL_TEXTURE_2D, m_texture.m_ID);
 
         obj.shader.Use();
+        obj.Update(dt);
         obj.Render();
     }
 }

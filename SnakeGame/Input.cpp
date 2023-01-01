@@ -11,12 +11,12 @@ namespace input
             glfwSetWindowShouldClose(window, true);
         }
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-            player.pos += player.speed * dt * glm::vec3(0.0f, 1.0f, 0.0f);
+            player.dir = glm::vec3(0.0f, 1.0f, 0.0f);
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-            player.pos += player.speed * dt * glm::vec3(0.0f, -1.0f, 0.0f);
+            player.dir = glm::vec3(0.0f, -1.0f, 0.0f);
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-            player.pos += player.speed * dt * glm::vec3(-1.0f, 0.0f, 0.0f);
+            player.dir = glm::vec3(-1.0f, 0.0f, 0.0f);
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-            player.pos += player.speed * dt * glm::vec3(1.0f, 0.0f, 0.0f);
+            player.dir = glm::vec3(1.0f, 0.0f, 0.0f);
     }
 }
