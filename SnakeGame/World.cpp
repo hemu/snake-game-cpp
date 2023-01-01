@@ -1,7 +1,13 @@
 #include "World.h"
 #include <cmath>
+#include <glm/glm.hpp>
 
 const float CELL_EPSILON = 0.0001f;
+
+glm::vec3 World::GetWorldPos(Coord coord)
+{
+    return glm::vec3(coord.x * m_cell_size, coord.y * m_cell_size, 0.0f);
+}
 
 Coord World::GetCellCoord(float x, float y)
 {

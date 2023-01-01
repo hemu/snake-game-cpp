@@ -4,6 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <array>
 #include "Camera.h"
 #include "Player.h"
 #include "Cube.h"
@@ -12,7 +13,6 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Scene.h"
-#include <array>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
@@ -45,10 +45,10 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glEnable(GL_DEPTH_TEST);
 
-    Camera camera(glm::vec3(0.0f, 0.0f, 6.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+    Camera camera(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
     Scene scene(camera);
 
-    Player player{};
+    Player player{scene.world};
     scene.AddGameObject(player);
 
     float dt{0.0f};

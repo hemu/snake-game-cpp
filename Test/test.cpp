@@ -48,3 +48,12 @@ TEST(WorldTest, GetCellCoordSize3)
     EXPECT_EQ(world.GetCellCoord(0, 10.5), Coord(0, 4));
     EXPECT_EQ(world.GetCellCoord(0, 10.6), Coord(0, 4));
 }
+
+TEST(WorldTest, GetWorldPos)
+{
+    World world{10, 10, 3};
+
+    EXPECT_EQ(world.GetWorldPos(Coord(0, 0)), glm::vec3(0.0f, 0.0f, 0.0f));
+    EXPECT_EQ(world.GetWorldPos(Coord(2, 2)), glm::vec3(6.0f, 6.0f, 0.0f));
+    EXPECT_EQ(world.GetWorldPos(Coord(-2, 1)), glm::vec3(-6.0f, 3.0f, 0.0f));
+}

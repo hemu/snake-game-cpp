@@ -33,7 +33,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\cpp\snake-game\SnakeGame;$(IncludePath)</IncludePath>
+    <IncludePath>C:\cpp\includes-and-libs\Include;C:\cpp\snake-game\SnakeGame;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\cpp\includes-and-libs\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

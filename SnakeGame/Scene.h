@@ -11,9 +11,9 @@ public:
     Scene(Camera &camera);
     void Render(float dt);
     void AddGameObject(GameObject &gameobject);
+    World world;
 
 private:
     Camera &m_camera;
     std::vector<std::reference_wrapper<GameObject>> m_gameobjs;
-    World m_world;
 };

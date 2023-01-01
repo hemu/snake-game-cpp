@@ -8,7 +8,7 @@
 #include "World.h"
 #include <set>
 
-Scene::Scene(Camera &camera) : m_camera{camera}, m_world{100, 100, 5}
+Scene::Scene(Camera &camera) : m_camera{camera}, world{20, 20, 1}
 {
 }
 
