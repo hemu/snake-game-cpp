@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player() : GameObject(), m_cube{}
+Player::Player() : GameObject("tex/snake.jpg"), m_cube{}
 {
 }
 

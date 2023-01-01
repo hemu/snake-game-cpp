@@ -5,6 +5,7 @@ class Cube : public GameObject
 {
 public:
     Cube();
+    Cube(const char *texture_path);
     ~Cube();
 
     void Setup();

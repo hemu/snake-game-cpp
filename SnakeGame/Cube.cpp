@@ -4,7 +4,11 @@
 
 Cube::Cube()
 {
-    std::cout << "Cube constructor" << std::endl;
+    Setup();
+}
+
+Cube::Cube(const char *texture_path) : GameObject(texture_path)
+{
     Setup();
 }
 

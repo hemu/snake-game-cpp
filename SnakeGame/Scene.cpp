@@ -8,7 +8,7 @@
 #include "World.h"
 #include <set>
 
-Scene::Scene(Camera &camera) : m_camera{camera}, m_texture{"container.jpg"}, m_world{100, 100, 5}
+Scene::Scene(Camera &camera) : m_camera{camera}, m_world{100, 100, 5}
 {
 }
 
@@ -33,8 +33,11 @@ void Scene::Render(float dt)
         unsigned int projectionLoc = glGetUniformLocation(obj.shader.ID, "projection");
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, m_texture.m_ID);
+        if (obj.texture != NULL)
+        {
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, obj.texture->m_ID);
+        }
 
         obj.shader.Use();
         obj.Update(dt);

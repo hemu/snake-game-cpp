@@ -15,6 +15,5 @@ public:
 private:
     Camera &m_camera;
     std::vector<std::reference_wrapper<GameObject>> m_gameobjs;
-    Texture m_texture;
     World m_world;
 };
