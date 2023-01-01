@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 #include "Shader.h"
 #include "Texture.h"
+#include <vector>
 
 class GameObject
 {
@@ -11,7 +12,11 @@ public:
     glm::vec3 pos;
     Shader shader;
     Texture *texture{NULL};
-    virtual void Render() = 0;
+    std::vector<GameObject *> children{};
+
+    void AddChild(GameObject *child);
+
+    virtual void Render(){};
     virtual void Update(float dt){};
 
 private:

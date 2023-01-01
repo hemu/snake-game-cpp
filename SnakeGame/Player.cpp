@@ -1,15 +1,20 @@
 #include "Player.h"
+#include "Cube.h"
 
-Player::Player() : GameObject("tex/snake.jpg"), m_cube{}
+Player::Player() : GameObject("tex/snake.jpg")
 {
+    for (int i = 0; i < 5; i++)
+    {
+        Cube *cube = new Cube();
+        cube->pos.y = i * -1.0f;
+        AddChild(cube);
+    }
 }
 
 void Player::Update(float dt)
 {
-    pos += dir * speed * dt;
-}
-
-void Player::Render()
-{
-    m_cube.Render();
+    for (auto child : children)
+    {
+        child->pos += dir * speed * dt;
+    }
 }
