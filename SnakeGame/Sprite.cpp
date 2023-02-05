@@ -7,7 +7,7 @@ Sprite::Sprite()
     Setup();
 }
 
-Sprite::Sprite(const char *texture_path) : GameObject(texture_path)
+Sprite::Sprite(const std::string &texture_path, std::string name) : GameObject(texture_path, name)
 {
     Setup();
 }
@@ -35,12 +35,25 @@ void Sprite::Setup()
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+
+    shader.Use();
+    shader.SetInt("texture1", 0);
 }
 
 void Sprite::Render()
 {
+    shader.Use();
+
+    if (texture != NULL)
+    {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture->m_ID);
+    }
+
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Sprite::~Sprite()

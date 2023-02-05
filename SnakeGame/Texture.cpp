@@ -8,6 +8,10 @@
 
 Texture::Texture(const char *file_path)
 {
+    if (file_path == NULL)
+    {
+        return;
+    }
     int width, height, nr_channels;
     // OpenGL expects 0 to be bottom of image so have to flip image
     stbi_set_flip_vertically_on_load(true);

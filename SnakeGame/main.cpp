@@ -7,7 +7,7 @@
 #include <array>
 #include "Camera.h"
 #include "Player.h"
-#include "Apple.h"
+#include "Consumable.h"
 #include "Input.h"
 #include "Rect.h"
 #include "Shader.h"
@@ -26,7 +26,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    GLFWwindow *window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(800, 600, "Mr. Snakey", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -50,6 +50,21 @@ int main()
 
     Player player{scene.world};
     scene.AddGameObject(player);
+
+    Consumable apple{"tex/apple.jpg", "Apple"};
+    apple.pos.x = 5;
+    apple.pos.y = 5;
+    scene.AddGameObject(apple);
+
+    Consumable apple2{"tex/apple.jpg", "Apple2"};
+    apple2.pos.x = 5;
+    apple2.pos.y = 8;
+    scene.AddGameObject(apple2);
+
+    Consumable banana{"tex/banana.jpg", "Banana"};
+    banana.pos.x = -5;
+    banana.pos.y = 5;
+    scene.AddGameObject(banana);
 
     float dt{0.0f};
     float last_frame{0.0f};

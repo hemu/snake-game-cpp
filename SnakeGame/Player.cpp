@@ -2,14 +2,15 @@
 #include "Sprite.h"
 #include "World.h"
 
-#define SNAKE_SEGMENTS 4
+#define SNAKE_SEGMENTS 1
 
-Player::Player(World &world) : GameObject(), m_world(world)
+Player::Player(World &world) : GameObject("Snake"), m_world(world)
 {
     pos = m_world.GetWorldPos(Coord{0, 0});
+    std::string tex_path = "tex/snake.jpg";
     for (int i = 0; i < SNAKE_SEGMENTS; i++)
     {
-        Sprite *sprite = new Sprite("tex/snake.jpg");
+        Sprite *sprite = new Sprite(tex_path, "Snake");
         AddChild(sprite);
         m_cells.push_back(Coord{0, -i});
         glm::vec3 newPos = m_world.GetWorldPos(m_cells[i]) - pos;
