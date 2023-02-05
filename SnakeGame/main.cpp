@@ -7,7 +7,7 @@
 #include <array>
 #include "Camera.h"
 #include "Player.h"
-#include "Cube.h"
+#include "Apple.h"
 #include "Input.h"
 #include "Rect.h"
 #include "Shader.h"

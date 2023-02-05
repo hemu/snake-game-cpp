@@ -1,10 +1,11 @@
 #include "World.h"
 #include <cmath>
 #include <glm/glm.hpp>
+#include <math.h>
 
 const float CELL_EPSILON = 0.0001f;
 
-glm::vec3 World::GetWorldPos(Coord coord)
+glm::vec3 World::GetWorldPos(const Coord &coord)
 {
     return glm::vec3(coord.x * m_cell_size, coord.y * m_cell_size, 0.0f);
 }
@@ -40,4 +41,14 @@ bool Coord::operator==(const Coord &other) const
 bool Coord::operator!=(const Coord &other) const
 {
     return !(*this == other);
+}
+
+Coord Coord::operator+(const Coord &other) const
+{
+    return Coord{x + other.x, y + other.y};
+}
+
+Coord Coord::operator-(const Coord &other) const
+{
+    return Coord{x - other.x, y - other.y};
 }

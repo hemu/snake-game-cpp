@@ -1,6 +1,6 @@
-Add rest of snake body that follow tail
+Change background color to black
 
-Add floor plane with floor texture
+Add apple that snake collides with to eat
 
 Add player collision detection with edges
 
