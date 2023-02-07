@@ -1,8 +1,8 @@
 #include "Consumable.h"
 #include "Sprite.h"
 
-Consumable::Consumable(const std::string &texture_path, std::string name) : GameObject(texture_path, name)
+Consumable::Consumable(std::string name, const std::string &texture_path) : GameObject(name, texture_path)
 {
-    Sprite *sprite = new Sprite(texture_path, name);
+    Sprite *sprite = new Sprite(name, texture_path);
     AddChild(sprite);
 }

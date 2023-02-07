@@ -1,13 +1,12 @@
 #include "GameObject.h"
 #include <iostream>
+#include "Shader.h"
 
-GameObject::GameObject() : shader{"res/BasicNoColor.shader"}, pos{0.0f, 0.0f, 0.0f}, name{"Default"} {}
-
-GameObject::GameObject(std::string name) : shader{"res/BasicNoColor.shader"}, pos{0.0f, 0.0f, 0.0f}, name{name}
+GameObject::GameObject(std::string name) : pos{0.0f, 0.0f, 0.0f}, name{name}
 {
 }
 
-GameObject::GameObject(const std::string &texture_path, std::string name) : shader{"res/BasicNoColor.shader"}, pos{0.0f, 0.0f, 0.0f}, name{name}
+GameObject::GameObject(std::string name, const std::string &texture_path) : pos{0.0f, 0.0f, 0.0f}, name{name}
 {
     texture = new Texture{texture_path.c_str()};
 }

@@ -9,7 +9,6 @@
 #include "Player.h"
 #include "Consumable.h"
 #include "Input.h"
-#include "Rect.h"
 #include "Shader.h"
 #include "Texture.h"
 #include "Scene.h"
@@ -46,22 +45,22 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     Camera camera(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
-    Scene scene(camera);
 
-    Player player{scene.world};
-    scene.AddGameObject(player);
+    Player player{};
+    Scene scene(camera, player);
+    player.Setup(&scene.world);
 
-    Consumable apple{"tex/apple.jpg", "Apple"};
+    Consumable apple{"Apple", "tex/apple.jpg"};
     apple.pos.x = 5;
     apple.pos.y = 5;
     scene.AddGameObject(apple);
 
-    Consumable apple2{"tex/apple.jpg", "Apple2"};
+    Consumable apple2{"Apple2", "tex/apple.jpg"};
     apple2.pos.x = 5;
     apple2.pos.y = 8;
     scene.AddGameObject(apple2);
 
-    Consumable banana{"tex/banana.jpg", "Banana"};
+    Consumable banana{"Banana", "tex/banana.jpg"};
     banana.pos.x = -5;
     banana.pos.y = 5;
     scene.AddGameObject(banana);
@@ -72,7 +71,7 @@ int main()
 
     while (!glfwWindowShouldClose(window))
     {
-        current_frame = glfwGetTime();
+        current_frame = static_cast<float>(glfwGetTime());
         dt = current_frame - last_frame;
         last_frame = current_frame;
         input::processInput(window, player, dt);

@@ -1,12 +1,12 @@
 #pragma once
 #include "GameObject.h"
 #include <string>
+#include "Shader.h"
 
 class Sprite : public GameObject
 {
 public:
-    Sprite();
-    Sprite(const std::string &texture_path, std::string name);
+    Sprite(std::string name, const std::string &texture_path);
     ~Sprite();
 
     void Setup();

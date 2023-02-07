@@ -2,12 +2,7 @@
 #include <glad/glad.h>
 #include <iostream>
 
-Sprite::Sprite()
-{
-    Setup();
-}
-
-Sprite::Sprite(const std::string &texture_path, std::string name) : GameObject(texture_path, name)
+Sprite::Sprite(std::string name, const std::string &texture_path) : GameObject(name, texture_path)
 {
     Setup();
 }
@@ -35,15 +30,10 @@ void Sprite::Setup()
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-    shader.Use();
-    shader.SetInt("texture1", 0);
 }
 
 void Sprite::Render()
 {
-    shader.Use();
-
     if (texture != NULL)
     {
         glActiveTexture(GL_TEXTURE0);

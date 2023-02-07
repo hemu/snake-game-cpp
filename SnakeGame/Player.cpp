@@ -2,18 +2,23 @@
 #include "Sprite.h"
 #include "World.h"
 
-#define SNAKE_SEGMENTS 1
+#define SNAKE_SEGMENTS 13
 
-Player::Player(World &world) : GameObject("Snake"), m_world(world)
+Player::Player() : GameObject("Snake")
 {
-    pos = m_world.GetWorldPos(Coord{0, 0});
+}
+
+void Player::Setup(World *world)
+{
+    m_world = world;
+    pos = m_world->GetWorldPos(Coord{0, 0});
     std::string tex_path = "tex/snake.jpg";
     for (int i = 0; i < SNAKE_SEGMENTS; i++)
     {
-        Sprite *sprite = new Sprite(tex_path, "Snake");
+        Sprite *sprite = new Sprite("Snake", tex_path);
         AddChild(sprite);
         m_cells.push_back(Coord{0, -i});
-        glm::vec3 newPos = m_world.GetWorldPos(m_cells[i]) - pos;
+        glm::vec3 newPos = m_world->GetWorldPos(m_cells[i]) - pos;
         children[i]->pos.x = newPos.x;
         children[i]->pos.y = newPos.y;
     }
@@ -21,9 +26,13 @@ Player::Player(World &world) : GameObject("Snake"), m_world(world)
 
 void Player::Update(float dt)
 {
+    if (m_world == NULL)
+    {
+        return;
+    }
     non_grid_pos += dir * speed * dt;
-    Coord next_head_cell = m_world.GetCellCoord(non_grid_pos.x, non_grid_pos.y);
-    pos = m_world.GetWorldPos(next_head_cell);
+    Coord next_head_cell = m_world->GetCellCoord(non_grid_pos.x, non_grid_pos.y);
+    pos = m_world->GetWorldPos(next_head_cell);
     if (m_cells[0] != next_head_cell)
     {
         for (size_t i = children.size() - 1; i > 0; i--)
@@ -31,7 +40,7 @@ void Player::Update(float dt)
             m_cells[i].x = m_cells[i - 1].x;
             m_cells[i].y = m_cells[i - 1].y;
 
-            glm::vec3 newPos = m_world.GetWorldPos(m_cells[i]) - pos;
+            glm::vec3 newPos = m_world->GetWorldPos(m_cells[i]) - pos;
             children[i]->pos.x = newPos.x;
             children[i]->pos.y = newPos.y;
         }

@@ -8,12 +8,10 @@
 class GameObject
 {
 public:
-    GameObject();
     GameObject(std::string name);
-    GameObject(const std::string &texture_path, std::string name);
+    GameObject(std::string name, const std::string &texture_path);
     ~GameObject();
     glm::vec3 pos;
-    Shader shader;
     Texture *texture{NULL};
     std::vector<GameObject *> children{};
     std::string name;
