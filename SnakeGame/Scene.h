@@ -13,13 +13,14 @@ public:
     Scene(Camera &camera, Player &player);
     void Render(float dt);
     void AddGameObject(GameObject &gameobject);
+    void Update(float dt);
     World world;
+    Physics physics;
 
 private:
     Camera &m_camera;
     std::vector<std::reference_wrapper<GameObject>> m_gameobjs;
     Shader shader;
-    Physics physics;
     Player &player;
     void RenderGameObject(GameObject &obj, float dt);
 };

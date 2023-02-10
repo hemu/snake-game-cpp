@@ -15,6 +15,7 @@ public:
     Texture *texture{NULL};
     std::vector<GameObject *> children{};
     std::string name;
+    bool alive = true;
 
     void AddChild(GameObject *child);
 

@@ -43,12 +43,25 @@ void Scene::RenderGameObject(GameObject &obj, float dt)
     }
 }
 
+void Scene::Update(float dt)
+{
+    physics.Update(dt);
+
+    // Cleanup destroyed objects
+    for (auto obj : m_gameobjs)
+    {
+    }
+}
+
 void Scene::Render(float dt)
 {
     for (unsigned int i = 0; i < m_gameobjs.size(); i++)
     {
         GameObject &obj = m_gameobjs[i].get();
-        RenderGameObject(obj, dt);
+        if (obj.alive)
+        {
+            RenderGameObject(obj, dt);
+        }
     }
 
     RenderGameObject(player, dt);

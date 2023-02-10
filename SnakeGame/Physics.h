@@ -23,7 +23,7 @@ class Physics
 {
 public:
     Physics(Player &player);
-    std::vector<Collidable> collidables;
+    std::vector<Collidable *> collidables;
     std::vector<Collision> collisions;
     Player &player;
 

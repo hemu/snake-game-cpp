@@ -2,7 +2,7 @@
 #include "Sprite.h"
 #include "World.h"
 
-#define SNAKE_SEGMENTS 13
+#define SNAKE_SEGMENTS 5
 
 Player::Player() : GameObject("Snake")
 {

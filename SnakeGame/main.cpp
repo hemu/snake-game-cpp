@@ -65,6 +65,10 @@ int main()
     banana.pos.y = 5;
     scene.AddGameObject(banana);
 
+    scene.physics.collidables.push_back(new Collidable{banana.pos, 1, 1, banana});
+    scene.physics.collidables.push_back(new Collidable{apple.pos, 1, 1, apple});
+    scene.physics.collidables.push_back(new Collidable{apple2.pos, 1, 1, apple2});
+
     float dt{0.0f};
     float last_frame{0.0f};
     float current_frame{0.0f};
@@ -79,6 +83,7 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        scene.Update(dt);
         scene.Render(dt);
 
         glfwSwapBuffers(window);
