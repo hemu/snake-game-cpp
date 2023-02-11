@@ -3,13 +3,25 @@
 
 Physics::Physics(Player &player) : player{player} {}
 
-void CheckAABB(Collidable a, Collidable b)
+bool CheckAABB(Collidable *a, Collidable *b)
 {
+    // is A to right of B?
+    // is A to left of B?
+    // is A above B?
+    // is A below B?
+    bool A_right_of_B = a->pos.x - a->width / 2.0f > b->pos.x + b->width / 2.0f;
+    bool A_left_of_B = a->pos.x + a->width / 2.0f < b->pos.x - b->width / 2.0f;
+    bool A_above_B = a->pos.y - a->height / 2.0f > b->pos.y + b->height / 2.0f;
+    bool A_below_B = a->pos.y + a->height / 2.0f < b->pos.y - b->height / 2.0f;
+
+    return !A_right_of_B && !A_left_of_B && !A_above_B && !A_below_B;
 }
 
 bool PlayerCollision(Player &player, Collidable *collidable)
 {
-    return glm::distance(player.pos, collidable->pos) < 1;
+    // return glm::distance(player.pos, collidable->pos) < 1;
+    Collidable player_collidable = Collidable{player.pos, player.head_width, player.head_height, player};
+    return CheckAABB(&player_collidable, collidable);
 }
 
 void Physics::Update(float dt)

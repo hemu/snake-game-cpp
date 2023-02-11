@@ -14,6 +14,7 @@ public:
     void Render(float dt);
     void AddGameObject(GameObject &gameobject);
     void Update(float dt);
+    void Setup();
     World world;
     Physics physics;
 

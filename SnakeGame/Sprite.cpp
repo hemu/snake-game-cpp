@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <iostream>
 
-Sprite::Sprite(std::string name, const std::string &texture_path) : GameObject(name, texture_path)
+Sprite::Sprite(std::string name, const std::string &texture_path) : GameObject(name, texture_path, 0, 0)
 {
     Setup();
 }

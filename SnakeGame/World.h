@@ -17,12 +17,13 @@ public:
 class World
 {
 public:
-    World(int width, int height, int cell_size) : m_width(width), m_height(height), m_cell_size(cell_size){};
+    World(int width, int height, float cell_size);
     Coord GetCellCoord(float x, float y);
     glm::vec3 GetWorldPos(const Coord &coord);
 
 private:
     int m_width;
     int m_height;
-    int m_cell_size;
+    float m_cell_size;
+    float m_cell_size_half;
 };

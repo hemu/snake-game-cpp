@@ -15,6 +15,15 @@ Scene::Scene(Camera &camera, Player &player) : m_camera{camera}, world{20, 20, 1
     shader.SetInt("texture1", 0);
 }
 
+void Scene::Setup()
+{
+    for (size_t i = 0; i < m_gameobjs.size(); i++)
+    {
+        GameObject &obj = m_gameobjs[i].get();
+        obj.pos = world.GetWorldPos(obj.cell_pos);
+    }
+}
+
 void Scene::RenderGameObject(GameObject &obj, float dt)
 {
     obj.Update(dt);

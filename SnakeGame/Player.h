@@ -15,6 +15,8 @@ public:
     glm::vec3 next_dir{0.0f, 1.0f, 0.0f};
     void SetDir(glm::vec3 dir);
     World *m_world;
+    float head_width{1.0f};
+    float head_height{1.0f};
 
 private:
     glm::vec3 dir{0.0f, 1.0f, 0.0f};

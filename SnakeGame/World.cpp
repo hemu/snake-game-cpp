@@ -5,9 +5,11 @@
 
 const float CELL_EPSILON = 0.0001f;
 
+World::World(int width, int height, float cell_size) : m_width{width}, m_height{height}, m_cell_size{cell_size}, m_cell_size_half{cell_size / 2.0f} {};
+
 glm::vec3 World::GetWorldPos(const Coord &coord)
 {
-    return glm::vec3(coord.x * m_cell_size, coord.y * m_cell_size, 0.0f);
+    return glm::vec3(coord.x * m_cell_size + m_cell_size_half, coord.y * m_cell_size + m_cell_size_half, 0.0f);
 }
 
 Coord World::GetCellCoord(float x, float y)

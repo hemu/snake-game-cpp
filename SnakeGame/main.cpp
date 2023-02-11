@@ -50,20 +50,16 @@ int main()
     Scene scene(camera, player);
     player.Setup(&scene.world);
 
-    Consumable apple{"Apple", "tex/apple.jpg"};
-    apple.pos.x = 5;
-    apple.pos.y = 5;
+    Consumable apple{"Apple", "tex/apple.jpg", 5, 5};
     scene.AddGameObject(apple);
 
-    Consumable apple2{"Apple2", "tex/apple.jpg"};
-    apple2.pos.x = 5;
-    apple2.pos.y = 8;
+    Consumable apple2{"Apple2", "tex/apple.jpg", -4, 5};
     scene.AddGameObject(apple2);
 
-    Consumable banana{"Banana", "tex/banana.jpg"};
-    banana.pos.x = -5;
-    banana.pos.y = 5;
+    Consumable banana{"Banana", "tex/banana.jpg", -7, 0};
     scene.AddGameObject(banana);
+
+    scene.Setup();
 
     scene.physics.collidables.push_back(new Collidable{banana.pos, 1, 1, banana});
     scene.physics.collidables.push_back(new Collidable{apple.pos, 1, 1, apple});
