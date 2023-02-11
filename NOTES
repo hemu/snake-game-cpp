@@ -1,2 +1,6 @@
-Add box collision
-Snake can collect apple
+Get PNG loading working
+Use spritesheet
+
+
+Snake can collide with itself and end game
+Fix snake eating fruit without being on tile
