@@ -56,9 +56,9 @@ void Scene::Update(float dt)
 {
     physics.Update(dt);
 
-    // Cleanup destroyed objects
-    for (auto obj : m_gameobjs)
+    for (size_t i = 0; i < physics.collisions.size(); i++)
     {
+        player.RegisterCollision(&world, physics.collisions[i]);
     }
 }
 

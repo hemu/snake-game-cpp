@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Users\hmuar\Downloads\glad\src\glad.c" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="Consumable.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collidable.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="Consumable.h" />
     <ClInclude Include="debug_draw.hpp" />

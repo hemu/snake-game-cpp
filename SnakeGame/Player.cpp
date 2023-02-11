@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Sprite.h"
 #include "World.h"
+#include <iostream>
 
 #define SNAKE_SEGMENTS 5
 
@@ -22,6 +23,19 @@ void Player::Setup(World *world)
         children[i]->pos.x = newPos.x;
         children[i]->pos.y = newPos.y;
     }
+}
+
+void Player::RegisterCollision(World *world, Collidable *other)
+{
+    std::cout << "Registering player collision: " << other->obj.name << "\n";
+    std::string tex_path = "tex/snake.jpg";
+    Sprite *sprite = new Sprite("Snake", tex_path);
+    AddChild(sprite);
+    Coord last_cell = m_cells[m_cells.size() - 1];
+    m_cells.push_back(Coord{last_cell.x, last_cell.y - 1});
+    glm::vec3 newPos = m_world->GetWorldPos(m_cells[m_cells.size() - 1]) - pos;
+    children[children.size() - 1]->pos.x = newPos.x;
+    children[children.size() - 1]->pos.y = newPos.y;
 }
 
 void Player::Update(float dt)
