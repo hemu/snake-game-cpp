@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <iostream>
 
-Sprite::Sprite(std::string name, const std::string &texture_path) : GameObject(name, texture_path, 0, 0)
+Sprite::Sprite(std::string name, const std::string &texture_path) : GameObject(name, 0, 0), texture{new Texture(texture_path.c_str())}
 {
     Setup();
 }
@@ -48,7 +48,7 @@ void Sprite::Render()
 
 Sprite::~Sprite()
 {
-    std::cout << "Sprite destructor" << std::endl;
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
+    delete texture;
 }

@@ -13,7 +13,7 @@ void Player::Setup(World *world)
 {
     m_world = world;
     pos = m_world->GetWorldPos(Coord{0, 0});
-    std::string tex_path = "tex/snake.jpg";
+    std::string tex_path = "tex/snake2.png";
     for (int i = 0; i < SNAKE_SEGMENTS; i++)
     {
         Sprite *sprite = new Sprite("Snake", tex_path);
@@ -27,14 +27,10 @@ void Player::Setup(World *world)
 
 void Player::RegisterCollision(World *world, Collidable *other)
 {
-    std::string tex_path = "tex/snake.jpg";
-    Sprite *sprite = new Sprite("Snake", tex_path);
+    Sprite *sprite = new Sprite("Snake", "tex/snake2.png");
     AddChild(sprite);
     Coord last_cell = m_cells[m_cells.size() - 1];
     m_cells.push_back(Coord{last_cell.x, last_cell.y});
-    // glm::vec3 newPos = m_world->GetWorldPos(m_cells[m_cells.size() - 1]) - pos;
-    // children[children.size() - 1]->pos.x = newPos.x;
-    // children[children.size() - 1]->pos.y = newPos.y;
 }
 
 void Player::Update(float dt)

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include <string>
 #include "Shader.h"
+#include "Texture.h"
 
 class Sprite : public GameObject
 {
@@ -11,6 +12,8 @@ public:
 
     void Setup();
     void Render() override;
+
+    Texture *texture;
 
     unsigned int VAO;
     unsigned int VBO;

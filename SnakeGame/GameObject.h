@@ -10,7 +10,8 @@ class GameObject
 {
 public:
     GameObject(std::string name);
-    GameObject(std::string name, const std::string &texture_path, int cell_x, int cell_y);
+    GameObject(std::string name, int cell_x, int cell_y);
+    static int nextId();
     ~GameObject();
     glm::vec3 pos;
     Coord cell_pos;
@@ -18,6 +19,7 @@ public:
     std::vector<GameObject *> children{};
     std::string name;
     bool alive = true;
+    int id;
 
     void AddChild(GameObject *child);
 
@@ -25,4 +27,5 @@ public:
     virtual void Update(float dt){};
 
 private:
+    static int prevId;
 };

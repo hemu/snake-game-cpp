@@ -8,6 +8,8 @@ out vec2 TexCoord;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform float time;
+uniform int unique_id;
 
 void main()
 {

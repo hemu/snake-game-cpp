@@ -13,6 +13,9 @@
 #include "Texture.h"
 #include "Scene.h"
 
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -25,7 +28,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    GLFWwindow *window = glfwCreateWindow(800, 600, "Mr. Snakey", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Mr. Snakey", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -38,7 +41,7 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     // -------------------------------------------------------------------------
 
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -50,24 +53,32 @@ int main()
     Scene scene(camera, player);
     player.Setup(&scene.world);
 
-    Consumable apple{"Apple", "tex/apple.jpg", 5, 5};
-    scene.AddGameObject(apple);
+    std::vector<Consumable *> fruits;
 
-    Consumable apple2{"Apple2", "tex/apple.jpg", -4, 5};
-    scene.AddGameObject(apple2);
-
-    Consumable banana{"Banana", "tex/banana.jpg", -7, 0};
-    scene.AddGameObject(banana);
+    for (size_t i = 0; i < 10; i++)
+    {
+        int x = rand() % 20 - 10;
+        int y = rand() % 20 - 10;
+        int choice = rand() % 2;
+        Consumable *fruit = choice == 0 ? new Consumable("Apple", "tex/apple.png", x, y) : new Consumable("Banana", "tex/banana.png", x, y);
+        fruits.push_back(fruit);
+        scene.AddGameObject(*fruit);
+    }
 
     scene.Setup();
 
-    scene.physics.collidables.push_back(new Collidable{banana.pos, 1, 1, banana});
-    scene.physics.collidables.push_back(new Collidable{apple.pos, 1, 1, apple});
-    scene.physics.collidables.push_back(new Collidable{apple2.pos, 1, 1, apple2});
+    for (Consumable *fruit : fruits)
+    {
+        scene.physics.collidables.push_back(new Collidable{fruit->pos, 1, 1, *fruit});
+    }
 
     float dt{0.0f};
     float last_frame{0.0f};
     float current_frame{0.0f};
+
+    // Enable transparency
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -76,11 +87,11 @@ int main()
         last_frame = current_frame;
         input::processInput(window, player, dt);
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         scene.Update(dt);
-        scene.Render(dt);
+        scene.Render(dt, current_frame);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
