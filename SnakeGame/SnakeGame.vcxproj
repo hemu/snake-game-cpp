@@ -138,11 +138,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Users\hmuar\Downloads\glad\src\glad.c" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="Consumable.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Physics.cpp" />
