@@ -55,12 +55,13 @@ int main()
 
     std::vector<Consumable *> fruits;
 
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < 1; i++)
     {
         int x = rand() % 20 - 10;
         int y = rand() % 20 - 10;
         int choice = rand() % 2;
-        Consumable *fruit = choice == 0 ? new Consumable("Apple", "tex/apple.png", x, y) : new Consumable("Banana", "tex/banana.png", x, y);
+        // Consumable *fruit = choice == 0 ? new Consumable("Apple", "tex/apple.png", x, y) : new Consumable("Banana", "tex/banana.png", x, y);
+        Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", x, y);
         fruits.push_back(fruit);
         scene.AddGameObject(*fruit);
     }
