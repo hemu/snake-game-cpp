@@ -1,6 +1,9 @@
-Use separate shader for consumable
+Create new SpriteSheet class
 
-Load fruits from spritesheet
+Generate random fruits after last one is collected
 
 Snake can collide with itself and end game
 Fix snake eating fruit without being on tile
+
+Add text rendering
+Display score, increase whenever snake eats fruit

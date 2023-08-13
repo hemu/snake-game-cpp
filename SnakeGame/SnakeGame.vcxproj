@@ -72,8 +72,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\cpp\includes-and-libs\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\cpp\includes-and-libs\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\hmuar\Documents\code\cpp\includes-and-libs\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\hmuar\Documents\code\cpp\includes-and-libs\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -159,6 +159,7 @@
     <ClInclude Include="Collidable.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="Consumable.h" />
+    <ClInclude Include="core\Camera.h" />
     <ClInclude Include="debug_draw.hpp" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Input.h" />

@@ -106,6 +106,9 @@
     <ClInclude Include="Collidable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shader.vs">

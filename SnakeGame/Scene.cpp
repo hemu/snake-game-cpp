@@ -19,6 +19,8 @@ Scene::Scene(Camera &camera, Player &player) : m_camera{camera}, world{20, 20, 1
 
 void Scene::Setup()
 {
+    // Only cell grid positions are defined for game objects initially. Convert
+    // cell grid positions to world positions.
     for (size_t i = 0; i < m_gameobjs.size(); i++)
     {
         GameObject &obj = m_gameobjs[i].get();
@@ -31,6 +33,7 @@ void Scene::RenderGameObject(GameObject &obj, Shader &shader, float dt, float ti
     obj.Update(dt);
     glm::mat4 parentModel = glm::mat4(1.0f);
     parentModel = glm::translate(parentModel, obj.pos);
+    // Update all children of this object.
     for (unsigned int j = 0; j < obj.children.size(); j++)
     {
         GameObject *child = obj.children[j];

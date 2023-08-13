@@ -12,6 +12,7 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Scene.h"
+#include "World.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -21,9 +22,17 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
+Coord GetRandomCell(int width, int height)
+{
+    int x = (rand() % width) - width / 2;
+    int y = (rand() % height) - height / 2;
+
+    return Coord{x, y};
+}
+
 int main()
 {
-    // Window initialization
+    // -------------------- Create Window ------------------------------------
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -59,9 +68,8 @@ int main()
     {
         int x = rand() % 20 - 10;
         int y = rand() % 20 - 10;
-        int choice = rand() % 2;
-        // Consumable *fruit = choice == 0 ? new Consumable("Apple", "tex/apple.png", x, y) : new Consumable("Banana", "tex/banana.png", x, y);
-        Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", x, y);
+        auto [cell_x, cell_y] = GetRandomCell(20, 20);
+        Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", x, y, 2, 2);
         fruits.push_back(fruit);
         scene.AddGameObject(*fruit);
     }
