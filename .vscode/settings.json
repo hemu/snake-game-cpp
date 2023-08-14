@@ -18,6 +18,7 @@
         "vector": "cpp",
         "deque": "cpp",
         "format": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "utility": "cpp"
     }
 }

@@ -22,10 +22,16 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-Coord GetRandomCell(int width, int height)
+Coord GetRandomCell(int width, int height, bool center_at_zero = false)
 {
-    int x = (rand() % width) - width / 2;
-    int y = (rand() % height) - height / 2;
+    int x = (rand() % width);
+    int y = (rand() % height);
+
+    if (center_at_zero)
+    {
+        x -= width / 2;
+        y -= height / 2;
+    }
 
     return Coord{x, y};
 }
@@ -64,12 +70,13 @@ int main()
 
     std::vector<Consumable *> fruits;
 
-    for (size_t i = 0; i < 1; i++)
+    for (size_t i = 0; i < 4; i++)
     {
         int x = rand() % 20 - 10;
         int y = rand() % 20 - 10;
-        auto [cell_x, cell_y] = GetRandomCell(20, 20);
-        Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", x, y, 2, 2);
+        Coord cell_coord = GetRandomCell(20, 20, true);
+        Coord tex_cell_coord = GetRandomCell(8, 8, false);
+        Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", cell_coord.x, cell_coord.y, tex_cell_coord.x, tex_cell_coord.y);
         fruits.push_back(fruit);
         scene.AddGameObject(*fruit);
     }

@@ -1,3 +1,5 @@
+Create a global resource class that maps texture_path to Texture
+
 Create new SpriteSheet class
 
 Generate random fruits after last one is collected

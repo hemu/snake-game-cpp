@@ -1,12 +1,14 @@
+#include "Atlas.h"
 #include "Sprite.h"
+#include "Texture.h"
 #include <glad/glad.h>
 #include <iostream>
 
-Sprite::Sprite(std::string name, const std::string &texture_path, int tex_cell_x, int tex_cell_y) : GameObject(name, 0, 0), texture{new Texture(texture_path.c_str())}
+Sprite::Sprite(std::string name, const std::string &texture_path, int tex_cell_x, int tex_cell_y, int tex_cell_w, int tex_cell_h) : GameObject(name, 0, 0), texture{Atlas::GetInstance()->GetTexture(texture_path)}
 {
     // TODO: create a separate SpriteSheet class that handles cells, make Sprite take in all tex coords
-    float sprite_w = 1.0f / 8.0f;
-    float sprite_h = 1.0f / 8.0f;
+    float sprite_w = 1.0f / (float)tex_cell_w;
+    float sprite_h = 1.0f / float(tex_cell_h);
     m_vertices[3] = tex_cell_x * sprite_w + sprite_w;
     m_vertices[4] = 1.0f - tex_cell_y * sprite_h;
     m_vertices[8] = tex_cell_x * sprite_w + sprite_w;
@@ -18,7 +20,7 @@ Sprite::Sprite(std::string name, const std::string &texture_path, int tex_cell_x
     Setup();
 }
 
-Sprite::Sprite(std::string name, const std::string &texture_path) : Sprite(name, texture_path, 0, 0)
+Sprite::Sprite(std::string name, const std::string &texture_path) : Sprite(name, texture_path, 0, 0, 1, 1)
 {
 }
 

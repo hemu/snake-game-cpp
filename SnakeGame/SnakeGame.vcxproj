@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Atlas.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="Consumable.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Atlas.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collidable.h" />
     <ClInclude Include="Constant.h" />
