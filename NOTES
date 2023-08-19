@@ -1,10 +1,9 @@
-Create a global resource class that maps texture_path to Texture
+More fruits spawn after previous fruits collected
+Snake only collides with fruit if in cell
 
-Create new SpriteSheet class
-
-Generate random fruits after last one is collected
-
+Snake goes offscreen -> game ends
 Snake can collide with itself and end game
+
 Fix snake eating fruit without being on tile
 
 Add text rendering

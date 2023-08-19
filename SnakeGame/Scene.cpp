@@ -19,13 +19,7 @@ Scene::Scene(Camera &camera, Player &player) : m_camera{camera}, world{20, 20, 1
 
 void Scene::Setup()
 {
-    // Only cell grid positions are defined for game objects initially. Convert
-    // cell grid positions to world positions.
-    for (size_t i = 0; i < m_gameobjs.size(); i++)
-    {
-        GameObject &obj = m_gameobjs[i].get();
-        obj.pos = world.GetWorldPos(obj.cell_pos);
-    }
+    player.Setup(&world);
 }
 
 void Scene::RenderGameObject(GameObject &obj, Shader &shader, float dt, float time)
@@ -84,7 +78,8 @@ void Scene::Render(float dt, float time)
     RenderGameObject(player, shader_player, dt, time);
 }
 
-void Scene::AddGameObject(GameObject &gameobj)
+void Scene::AddGameObject(GameObject &obj)
 {
-    m_gameobjs.push_back(gameobj);
+    obj.pos = world.GetWorldPos(obj.cell_pos);
+    m_gameobjs.push_back(obj);
 }

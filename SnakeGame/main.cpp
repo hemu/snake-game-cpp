@@ -36,6 +36,51 @@ Coord GetRandomCell(int width, int height, bool center_at_zero = false)
     return Coord{x, y};
 }
 
+Consumable *CreateFruit(Scene &scene)
+{
+    int x = rand() % 20 - 10;
+    int y = rand() % 20 - 10;
+    Coord cell_coord = GetRandomCell(20, 20, true);
+    Coord tex_cell_coord = GetRandomCell(8, 8, false);
+    Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", cell_coord.x, cell_coord.y, tex_cell_coord.x, tex_cell_coord.y);
+    scene.AddGameObject(*fruit);
+    scene.physics.collidables.push_back(new Collidable{fruit->pos, 1, 1, *fruit});
+    return fruit;
+}
+
+void GameLoop(GLFWwindow *window)
+{
+    Camera camera(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
+    Player player{};
+    Scene scene(camera, player);
+    scene.Setup();
+
+    for (size_t i = 0; i < 4; i++)
+    {
+        CreateFruit(scene);
+    }
+
+    float dt{0.0f};
+    float last_frame{0.0f};
+    float current_frame{0.0f};
+    while (!glfwWindowShouldClose(window))
+    {
+        current_frame = static_cast<float>(glfwGetTime());
+        dt = current_frame - last_frame;
+        last_frame = current_frame;
+        input::processInput(window, player, dt);
+
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        scene.Update(dt);
+        scene.Render(dt, current_frame);
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+}
+
 int main()
 {
     // -------------------- Create Window ------------------------------------
@@ -58,60 +103,13 @@ int main()
     }
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     // -------------------------------------------------------------------------
-
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glEnable(GL_DEPTH_TEST);
-
-    Camera camera(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
-
-    Player player{};
-    Scene scene(camera, player);
-    player.Setup(&scene.world);
-
-    std::vector<Consumable *> fruits;
-
-    for (size_t i = 0; i < 4; i++)
-    {
-        int x = rand() % 20 - 10;
-        int y = rand() % 20 - 10;
-        Coord cell_coord = GetRandomCell(20, 20, true);
-        Coord tex_cell_coord = GetRandomCell(8, 8, false);
-        Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", cell_coord.x, cell_coord.y, tex_cell_coord.x, tex_cell_coord.y);
-        fruits.push_back(fruit);
-        scene.AddGameObject(*fruit);
-    }
-
-    scene.Setup();
-
-    for (Consumable *fruit : fruits)
-    {
-        scene.physics.collidables.push_back(new Collidable{fruit->pos, 1, 1, *fruit});
-    }
-
-    float dt{0.0f};
-    float last_frame{0.0f};
-    float current_frame{0.0f};
-
     // Enable transparency
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    while (!glfwWindowShouldClose(window))
-    {
-        current_frame = static_cast<float>(glfwGetTime());
-        dt = current_frame - last_frame;
-        last_frame = current_frame;
-        input::processInput(window, player, dt);
-
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        scene.Update(dt);
-        scene.Render(dt, current_frame);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
+    GameLoop(window);
 
     glfwTerminate();
     return 0;
