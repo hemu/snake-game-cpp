@@ -2,6 +2,7 @@
 #include "Sprite.h"
 #include "World.h"
 #include <iostream>
+#include "SignalManager.h"
 
 #define SNAKE_SEGMENTS 5
 
@@ -23,6 +24,8 @@ void Player::Setup(World *world)
         children[i]->pos.x = newPos.x;
         children[i]->pos.y = newPos.y;
     }
+
+    SignalManager::GetInstance()->itemEaten.connect_member(this, &Player::HandleItemEaten);
 }
 
 void Player::RegisterCollision(World *world, Collidable *other)
@@ -31,6 +34,12 @@ void Player::RegisterCollision(World *world, Collidable *other)
     AddChild(sprite);
     Coord last_cell = m_cells[m_cells.size() - 1];
     m_cells.push_back(Coord{last_cell.x, last_cell.y});
+    SignalManager::GetInstance()->itemEaten.emit();
+}
+
+void Player::HandleItemEaten()
+{
+    std::cout << "handling item eaten....\n";
 }
 
 void Player::Update(float dt)

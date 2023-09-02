@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "World.h"
+#include "Consumable.h"
+#include "Collidable.h"
 #include "Player.h"
 #include <set>
 
@@ -17,9 +19,40 @@ Scene::Scene(Camera &camera, Player &player) : m_camera{camera}, world{20, 20, 1
     shader_consumable.SetInt("texture1", 0);
 }
 
+Coord GetRandomCell(int width, int height, bool center_at_zero = false)
+{
+    int x = (rand() % width);
+    int y = (rand() % height);
+
+    if (center_at_zero)
+    {
+        x -= width / 2;
+        y -= height / 2;
+    }
+
+    return Coord{x, y};
+}
+
+Consumable *CreateFruit(Scene &scene, const Coord &coord)
+{
+    Coord tex_cell_coord = GetRandomCell(8, 8, false);
+    Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", coord.x, coord.y, tex_cell_coord.x, tex_cell_coord.y);
+    scene.AddGameObject(*fruit);
+    scene.physics.collidables.push_back(new Collidable{fruit->pos, 1, 1, *fruit});
+    return fruit;
+}
+
 void Scene::Setup()
 {
     player.Setup(&world);
+
+    for (size_t i = 0; i < 2; i++)
+    {
+        int x = rand() % 20 - 10;
+        int y = rand() % 20 - 10;
+        Coord coord = GetRandomCell(20, 20, true);
+        CreateFruit(*this, coord);
+    }
 }
 
 void Scene::RenderGameObject(GameObject &obj, Shader &shader, float dt, float time)

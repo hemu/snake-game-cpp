@@ -1,3 +1,5 @@
+Add callback handlers
+
 More fruits spawn after previous fruits collected
 Snake only collides with fruit if in cell
 

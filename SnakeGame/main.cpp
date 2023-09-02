@@ -7,7 +7,6 @@
 #include <array>
 #include "Camera.h"
 #include "Player.h"
-#include "Consumable.h"
 #include "Input.h"
 #include "Shader.h"
 #include "Texture.h"
@@ -22,43 +21,12 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-Coord GetRandomCell(int width, int height, bool center_at_zero = false)
-{
-    int x = (rand() % width);
-    int y = (rand() % height);
-
-    if (center_at_zero)
-    {
-        x -= width / 2;
-        y -= height / 2;
-    }
-
-    return Coord{x, y};
-}
-
-Consumable *CreateFruit(Scene &scene)
-{
-    int x = rand() % 20 - 10;
-    int y = rand() % 20 - 10;
-    Coord cell_coord = GetRandomCell(20, 20, true);
-    Coord tex_cell_coord = GetRandomCell(8, 8, false);
-    Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", cell_coord.x, cell_coord.y, tex_cell_coord.x, tex_cell_coord.y);
-    scene.AddGameObject(*fruit);
-    scene.physics.collidables.push_back(new Collidable{fruit->pos, 1, 1, *fruit});
-    return fruit;
-}
-
 void GameLoop(GLFWwindow *window)
 {
     Camera camera(glm::vec3(0.0f, 0.0f, 10.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
     Player player{};
     Scene scene(camera, player);
     scene.Setup();
-
-    for (size_t i = 0; i < 4; i++)
-    {
-        CreateFruit(scene);
-    }
 
     float dt{0.0f};
     float last_frame{0.0f};

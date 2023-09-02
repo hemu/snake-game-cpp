@@ -1,7 +1,12 @@
-Change background color to black
+# TODO
 
-Add apple that snake collides with to eat
+More fruits spawn after previous fruits collected
+Snake only collides with fruit if in cell
 
-Add player collision detection with edges
+Snake goes offscreen -> game ends
+Snake can collide with itself and end game
 
-Add player collision detection with self
+Add text rendering
+Display score, increase whenever snake eats fruit
+
+Restart game, wait until user presses Enter
