@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <functional>
 
 class Coord
 {
@@ -12,6 +13,16 @@ public:
 
     int x;
     int y;
+};
+
+struct CoordHash
+{
+    std::hash<int> int_hash;
+
+    std::size_t operator()(const Coord &coord) const
+    {
+        return (59 + int_hash(coord.x)) * 59 + int_hash(coord.y);
+    }
 };
 
 class World

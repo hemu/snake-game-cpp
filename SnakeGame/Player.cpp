@@ -60,6 +60,11 @@ void Player::Update(float dt)
     }
 }
 
+const std::vector<Coord> &Player::GetCells()
+{
+    return m_cells;
+}
+
 void Player::SetDir(glm::vec3 _dir)
 {
     dir = _dir;

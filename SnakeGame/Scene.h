@@ -6,6 +6,7 @@
 #include "World.h"
 #include "Shader.h"
 #include "Physics.h"
+#include <unordered_set>
 
 class Scene
 {
@@ -26,4 +27,5 @@ private:
     Player &player;
     void RenderGameObject(GameObject &obj, Shader &shader, float dt, float time);
     void HandleItemEaten();
+    std::unordered_set<Coord, CoordHash> occupied;
 };

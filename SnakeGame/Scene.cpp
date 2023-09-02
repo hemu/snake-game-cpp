@@ -37,12 +37,14 @@ Coord RandomCell(int width, int height, bool center_at_zero = false)
     return Coord{x, y};
 }
 
-Consumable *CreateFruit(Scene &scene, const Coord &coord)
+Consumable *CreateFruit(Scene &scene, const Coord &coord, std::unordered_set<Coord, CoordHash> &occupied)
 {
     Coord tex_cell_coord = RandomCell(8, 8, false);
     Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", coord.x, coord.y, tex_cell_coord.x, tex_cell_coord.y);
     scene.AddGameObject(*fruit);
     scene.physics.collidables.push_back(new Collidable{fruit->pos, 1, 1, *fruit});
+
+    occupied.insert(coord);
     return fruit;
 }
 
@@ -52,7 +54,7 @@ void Scene::Setup()
 
     for (size_t i = 0; i < 2; i++)
     {
-        CreateFruit(*this, RandomCell(CELL_WIDTH, CELL_HEIGHT, true));
+        CreateFruit(*this, RandomCell(CELL_WIDTH, CELL_HEIGHT, true), occupied);
     }
 
     SignalManager::GetInstance()->itemEaten.connect_member(this, &Scene::HandleItemEaten);
@@ -60,7 +62,6 @@ void Scene::Setup()
 
 void Scene::RenderGameObject(GameObject &obj, Shader &shader, float dt, float time)
 {
-    obj.Update(dt);
     glm::mat4 parentModel = glm::mat4(1.0f);
     parentModel = glm::translate(parentModel, obj.pos);
     // Update all children of this object.
@@ -92,12 +93,35 @@ void Scene::RenderGameObject(GameObject &obj, Shader &shader, float dt, float ti
 
 void Scene::HandleItemEaten()
 {
-    CreateFruit(*this, RandomCell(CELL_WIDTH, CELL_HEIGHT, true));
+    Coord coord = RandomCell(CELL_WIDTH, CELL_HEIGHT, true);
+    while (occupied.count(coord))
+    {
+        coord = RandomCell(CELL_WIDTH, CELL_HEIGHT, true);
+    }
+
+    CreateFruit(*this, coord, occupied);
 }
 
 void Scene::Update(float dt)
 {
     physics.Update(dt);
+
+    player.Update(dt);
+    occupied.clear();
+
+    for (Coord cell : player.GetCells())
+    {
+        occupied.insert(cell);
+    }
+
+    for (unsigned int i = 0; i < m_gameobjs.size(); i++)
+    {
+        GameObject &obj = m_gameobjs[i].get();
+        if (obj.alive)
+        {
+            obj.Update(dt);
+        }
+    }
 
     for (size_t i = 0; i < physics.collisions.size(); i++)
     {
