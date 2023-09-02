@@ -5,11 +5,15 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "World.h"
-#include "Consumable.h"
-#include "Collidable.h"
-#include "Player.h"
 #include <set>
+#include "Collidable.h"
+#include "Consumable.h"
+#include "Player.h"
+#include "SignalManager.h"
+#include "World.h"
+
+#define CELL_WIDTH 20
+#define CELL_HEIGHT 20
 
 Scene::Scene(Camera &camera, Player &player) : m_camera{camera}, world{20, 20, 1}, shader_player{"res/BasicNoColor.glsl"}, shader_consumable{"res/Consumable.glsl"}, physics{player}, player{player}
 {
@@ -19,7 +23,7 @@ Scene::Scene(Camera &camera, Player &player) : m_camera{camera}, world{20, 20, 1
     shader_consumable.SetInt("texture1", 0);
 }
 
-Coord GetRandomCell(int width, int height, bool center_at_zero = false)
+Coord RandomCell(int width, int height, bool center_at_zero = false)
 {
     int x = (rand() % width);
     int y = (rand() % height);
@@ -35,7 +39,7 @@ Coord GetRandomCell(int width, int height, bool center_at_zero = false)
 
 Consumable *CreateFruit(Scene &scene, const Coord &coord)
 {
-    Coord tex_cell_coord = GetRandomCell(8, 8, false);
+    Coord tex_cell_coord = RandomCell(8, 8, false);
     Consumable *fruit = new Consumable("Fruits", "tex/food_atlas.png", coord.x, coord.y, tex_cell_coord.x, tex_cell_coord.y);
     scene.AddGameObject(*fruit);
     scene.physics.collidables.push_back(new Collidable{fruit->pos, 1, 1, *fruit});
@@ -48,11 +52,10 @@ void Scene::Setup()
 
     for (size_t i = 0; i < 2; i++)
     {
-        int x = rand() % 20 - 10;
-        int y = rand() % 20 - 10;
-        Coord coord = GetRandomCell(20, 20, true);
-        CreateFruit(*this, coord);
+        CreateFruit(*this, RandomCell(CELL_WIDTH, CELL_HEIGHT, true));
     }
+
+    SignalManager::GetInstance()->itemEaten.connect_member(this, &Scene::HandleItemEaten);
 }
 
 void Scene::RenderGameObject(GameObject &obj, Shader &shader, float dt, float time)
@@ -85,6 +88,11 @@ void Scene::RenderGameObject(GameObject &obj, Shader &shader, float dt, float ti
 
         child->Render();
     }
+}
+
+void Scene::HandleItemEaten()
+{
+    CreateFruit(*this, RandomCell(CELL_WIDTH, CELL_HEIGHT, true));
 }
 
 void Scene::Update(float dt)

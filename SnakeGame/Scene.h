@@ -25,4 +25,5 @@ private:
     Shader shader_consumable;
     Player &player;
     void RenderGameObject(GameObject &obj, Shader &shader, float dt, float time);
+    void HandleItemEaten();
 };

@@ -24,6 +24,4 @@ private:
     glm::vec3 dir{0.0f, 1.0f, 0.0f};
     glm::vec3 non_grid_pos{0.0, 0.0, 0.0};
     std::vector<Coord> m_cells;
-
-    void HandleItemEaten();
 };

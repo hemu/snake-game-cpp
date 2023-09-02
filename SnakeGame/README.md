@@ -1,6 +1,7 @@
 # TODO
 
-More fruits spawn after previous fruits collected
+Don't spawn fruit inside snake
+
 Snake only collides with fruit if in cell
 
 Snake goes offscreen -> game ends
