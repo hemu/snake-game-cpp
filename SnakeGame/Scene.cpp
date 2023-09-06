@@ -107,8 +107,10 @@ void Scene::Update(float dt)
     physics.Update(dt);
 
     player.Update(dt);
-    occupied.clear();
 
+    // TODO: instead of regenerating occupied set every frame,
+    // can just add new player head and remove player tail if player moved
+    occupied.clear();
     for (Coord cell : player.GetCells())
     {
         occupied.insert(cell);
