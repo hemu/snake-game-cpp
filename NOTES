@@ -1,12 +1,10 @@
 Add callback handlers
+Display score, increase whenever snake eats fruit
 
-More fruits spawn after previous fruits collected
 Snake only collides with fruit if in cell
-
 Snake goes offscreen -> game ends
 Snake can collide with itself and end game
 
-Fix snake eating fruit without being on tile
+Change snake sprite
 
-Add text rendering
-Display score, increase whenever snake eats fruit
+Fix blurry fruit
