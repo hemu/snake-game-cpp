@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <string>
 
 #include "Camera.h"
 #include "Input.h"
@@ -14,6 +15,7 @@
 #include "Texture.h"
 #include "Scene.h"
 #include "World.h"
+#include "SignalManager.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -35,11 +37,20 @@ void GameLoop(GLFWwindow *window)
     float dt{0.0f};
     float last_frame{0.0f};
     float current_frame{0.0f};
+    int score{0};
+    int prev_score{0};
+
+    SignalManager::GetInstance()->itemEaten.connect([&score]()
+                                                    { score += 1; });
 
     Shader text_shader = Shader("res/Tex.glsl");
     text_shader.Use();
 
-    Text score = Text{"Score: 0"};
+    Text score_label_heading = Text{"Score"};
+    Text score_label = Text{"0"};
+
+    const float score_label_heading_y = WINDOW_HEIGHT - 150;
+    const float score_label_y = score_label_heading_y - 30;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -54,7 +65,14 @@ void GameLoop(GLFWwindow *window)
         scene.Update(dt);
         scene.Render(dt, current_frame);
 
-        score.Render(text_shader, 25.0f, 25.0f, 0.3f, glm::vec3(1.0, 1.0f, 0.0f));
+        if (score != prev_score)
+        {
+            score_label.text = std::to_string(score);
+            prev_score = score;
+        }
+
+        score_label_heading.Render(text_shader, 25.0f, score_label_heading_y, 0.4f, glm::vec3(0.8f, 0.9f, 0.9f));
+        score_label.Render(text_shader, 40.0f, score_label_y, 0.4f, glm::vec3(0.8f, 0.9f, 0.9f));
 
         glfwSwapBuffers(window);
         glfwPollEvents();

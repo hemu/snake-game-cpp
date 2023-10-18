@@ -15,10 +15,10 @@ class Text
 public:
     Text(std::string text);
     void Render(Shader &shader, float x, float y, float scale, glm::vec3 color);
+    std::string text;
 
 private:
     int Setup();
-    std::string text;
     unsigned int VAO;
     unsigned int VBO;
     std::map<char, Character> Characters;
