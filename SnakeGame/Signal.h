@@ -1,3 +1,5 @@
+// NOTE: I didn't write this code, i got it from here: https://schneegans.github.io/tutorials/2015/09/20/signal-slot
+
 #ifndef SIGNAL_HPP
 #define SIGNAL_HPP
 

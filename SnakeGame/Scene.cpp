@@ -15,7 +15,14 @@
 #define CELL_WIDTH 20
 #define CELL_HEIGHT 20
 
-Scene::Scene(Camera &camera, Player &player) : m_camera{camera}, world{20, 20, 1}, shader_player{"res/BasicNoColor.glsl"}, shader_consumable{"res/Consumable.glsl"}, physics{player}, player{player}
+Scene::Scene(Camera &camera, Player &player) :
+    m_camera{camera},
+    world{20, 20, 1},
+    shader_player{"res/BasicNoColor.glsl"},
+    shader_consumable{"res/Consumable.glsl"},
+    shader_line{"res/Line.glsl"},
+    physics{player},
+    player{player}
 {
     shader_player.Use();
     shader_player.SetInt("texture1", 0);
@@ -91,6 +98,22 @@ void Scene::RenderGameObject(GameObject &obj, Shader &shader, float dt, float ti
     }
 }
 
+void Scene::RenderLine(Line &line) {
+    glm::mat4 parentModel = glm::mat4(1.0f);
+    // Update all children of this object.
+    glm::mat4 model = glm::mat4(1.0f);
+    glm::mat4 view = m_camera.GetView();
+    glm::mat4 projection = glm::mat4(1.0f);
+    projection = glm::perspective(glm::radians(100.0f), 1280.0f / 720.0f, 0.1f, 100.0f);
+
+    shader_line.Use();
+    shader_line.SetMatrix4fv("model", model);
+    shader_line.SetMatrix4fv("view", view);
+    shader_line.SetMatrix4fv("projection", projection);
+
+    line.Render();
+}
+
 void Scene::HandleItemEaten()
 {
     Coord coord = RandomCell(CELL_WIDTH, CELL_HEIGHT, true);
@@ -143,6 +166,10 @@ void Scene::Render(float dt, float time)
     }
 
     RenderGameObject(player, shader_player, dt, time);
+
+    // Render grid
+    Line line{glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(20.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 1.0f)};
+    RenderLine(line);
 }
 
 void Scene::AddGameObject(GameObject &obj)

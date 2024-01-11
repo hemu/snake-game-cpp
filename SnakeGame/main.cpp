@@ -20,7 +20,6 @@
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 
-unsigned int VAO, VBO;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {

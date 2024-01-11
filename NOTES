@@ -1,7 +1,13 @@
-Snake only collides with fruit if in cell
+Draw debug grid lines
+
 Snake goes offscreen -> game ends
 Snake can collide with itself and end game
+Snake only collides with fruit if in cell
+    - ensure fruits are centered in cell
+    - ensure fruits are not bigger than cell
+    - ensure collision box is a little smaller than cell
 
 Change snake sprite
-
 Fix blurry fruit
+
+Snake gets faster as game goes on

@@ -6,7 +6,14 @@
 class Sprite : public GameObject
 {
 public:
-    Sprite(std::string name, const std::string &texture_path, int tex_cell_x, int tex_cell_y, int tex_cell_w, int tex_cell_h);
+    Sprite(
+        std::string name,
+        const std::string &texture_path,
+        int tex_cell_x,
+        int tex_cell_y,
+        int tex_cell_w,
+        int tex_cell_h
+    );
     Sprite(std::string name, const std::string &texture_path);
     ~Sprite();
 

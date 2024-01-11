@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include <vector>
 #include "GameObject.h"
+#include "Line.h"
 #include "Texture.h"
 #include "World.h"
 #include "Shader.h"
@@ -24,8 +25,10 @@ private:
     std::vector<std::reference_wrapper<GameObject>> m_gameobjs;
     Shader shader_player;
     Shader shader_consumable;
+    Shader shader_line;
     Player &player;
     void RenderGameObject(GameObject &obj, Shader &shader, float dt, float time);
+    void RenderLine(Line &line);
     void HandleItemEaten();
     std::unordered_set<Coord, CoordHash> occupied;
 };
