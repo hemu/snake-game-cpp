@@ -3,6 +3,7 @@
 
 class Line {
 public: 
+    Line();
     Line(glm::vec3 start, glm::vec3 end, glm::vec3 color);
 
     unsigned int VAO, VBO;

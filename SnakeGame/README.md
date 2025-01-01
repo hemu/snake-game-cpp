@@ -1,7 +1,9 @@
 # TODO
 
-Add text rendering
-Display score, increase whenever snake eats fruit
+Why crashes after eating two fruits?
+
+Render cell grid
+Food should render in grid cell
 
 Snake only collides with fruit if in cell
 

@@ -2,6 +2,8 @@
 
 #include "Line.h"
 
+Line::Line() : start{0, 0, 0}, end{0, 0, 0}, color{1, 1, 1} {}
+
 Line::Line(glm::vec3 start, glm::vec3 end, glm::vec3 color) : start{start}, end{end}, color{color} {
     float vertices[12] = {
         start.x, start.y, start.z, color.x, color.y, color.z,

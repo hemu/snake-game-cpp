@@ -11,13 +11,14 @@
 #include "Player.h"
 #include "SignalManager.h"
 #include "World.h"
+#include "Constant.h"
+#include "Debug.h"
 
-#define CELL_WIDTH 20
-#define CELL_HEIGHT 20
+#define WORLD_CELL_DIM 20
 
 Scene::Scene(Camera &camera, Player &player) :
     m_camera{camera},
-    world{20, 20, 1},
+    world{WORLD_CELL_DIM, WORLD_CELL_DIM, 1},
     shader_player{"res/BasicNoColor.glsl"},
     shader_consumable{"res/Consumable.glsl"},
     shader_line{"res/Line.glsl"},
@@ -116,11 +117,10 @@ void Scene::RenderLine(Line &line) {
 
 void Scene::HandleItemEaten()
 {
-    Coord coord = RandomCell(CELL_WIDTH, CELL_HEIGHT, true);
-    while (occupied.count(coord))
-    {
+    Coord coord;
+    do {
         coord = RandomCell(CELL_WIDTH, CELL_HEIGHT, true);
-    }
+    } while (occupied.count(coord));
 
     CreateFruit(*this, coord, occupied);
 }
@@ -128,9 +128,7 @@ void Scene::HandleItemEaten()
 void Scene::Update(float dt)
 {
     physics.Update(dt);
-
     player.Update(dt);
-
     // TODO: instead of regenerating occupied set every frame,
     // can just add new player head and remove player tail if player moved
     occupied.clear();
@@ -167,9 +165,10 @@ void Scene::Render(float dt, float time)
 
     RenderGameObject(player, shader_player, dt, time);
 
-    // Render grid
-    Line line{glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(20.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 1.0f)};
-    RenderLine(line);
+    auto lines = getGridLines(WORLD_CELL_DIM, WORLD_CELL_DIM, 1.0f);
+    for (Line line : lines) {
+        RenderLine(line);
+    }
 }
 
 void Scene::AddGameObject(GameObject &obj)

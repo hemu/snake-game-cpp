@@ -142,6 +142,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="Consumable.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="SignalManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Constant.h" />
     <ClInclude Include="Consumable.h" />
     <ClInclude Include="core\Camera.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="debug_draw.hpp" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="SignalManager.h" />

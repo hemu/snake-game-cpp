@@ -4,8 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/cpp/includes-and-libs/Include",
-                "C:/cpp/LearnOpenGL"
+                "C:/Users/hmuar/Documents/code/cpp/includes-and-libs/Include"
             ],
             "defines": [
                 "_DEBUG",
