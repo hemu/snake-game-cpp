@@ -15,7 +15,7 @@ bool CheckAABB(Collidable *a, Collidable *b)
 
 bool PlayerCollision(Player &player, Collidable *collidable)
 {
-    Collidable player_collidable = Collidable{player.pos, player.head_width, player.head_height, player};
+    Collidable player_collidable = Collidable{player.pos, player.head_width * 0.9f, player.head_height * 0.8f, player};
     return CheckAABB(&player_collidable, collidable);
 }
 

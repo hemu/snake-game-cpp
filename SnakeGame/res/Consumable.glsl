@@ -20,7 +20,7 @@ float rand(float n){return fract(sin(n) * 43758.5453123);}
 void main()
 {
     rand_noise = rand(float(unique_id));
-    offset = abs(sin(2*time + rand_noise)) * 0.3;
+    offset = abs(sin(2*time + rand_noise)) * -0.1;
     offset_pos = vec3(aPos.x + sign(aPos.x) * offset, aPos.y + sign(aPos.y)*offset, aPos.z);
     gl_Position = projection * view * model * vec4(offset_pos, 1.0);
     TexCoord = vec2(aTexCoord.x, aTexCoord.y);

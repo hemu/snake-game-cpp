@@ -101,7 +101,8 @@ int main()
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     // -------------------------------------------------------------------------
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glEnable(GL_DEPTH_TEST);
+    // Disable depth test so that rendering is back to front and grid lines are rendered on top of everything
+    glDisable(GL_DEPTH_TEST);
 
     GameLoop(window);
 

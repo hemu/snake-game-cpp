@@ -4,7 +4,7 @@
 #include <iostream>
 #include "SignalManager.h"
 
-#define SNAKE_SEGMENTS 5
+#define SNAKE_INIT_SEGMENT_COUNT 5
 
 Player::Player() : GameObject("Snake")
 {
@@ -15,7 +15,7 @@ void Player::Setup(World *world)
     m_world = world;
     pos = m_world->GetWorldPos(Coord{0, 0});
     std::string tex_path = "tex/snake2.png";
-    for (int i = 0; i < SNAKE_SEGMENTS; i++)
+    for (int i = 0; i < SNAKE_INIT_SEGMENT_COUNT; i++)
     {
         Sprite *sprite = new Sprite("Snake", tex_path);
         AddChild(sprite);
